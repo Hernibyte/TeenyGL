@@ -30,6 +30,9 @@ namespace TGL::CORE
         
         void swap_buffers() const;
         void poll_events() const;
+        void set_vsync(bool state);
+        
+        f64 get_time() const;
         
         void* get_process_address() const;
 
@@ -54,6 +57,7 @@ namespace TGL::CORE
             i32 framebuffer_height;
             const char* title;
             event::callback_fn on_event;
+            bool vsync;
         };
         window_props m_window_props;
 

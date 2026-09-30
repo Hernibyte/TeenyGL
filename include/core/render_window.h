@@ -27,6 +27,7 @@ namespace TGL::CORE
         std::shared_ptr<GFX::shader_program> m_default_shader_program;
         std::shared_ptr<GFX::UTILS::triangle> triangle_shape;
         std::shared_ptr<GFX::UTILS::square> square_shape;
+        
     };
     
 }

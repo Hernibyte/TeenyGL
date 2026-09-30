@@ -201,6 +201,17 @@ namespace TGL::CORE
         glfwPollEvents();
     }
 
+    void window::set_vsync(bool state)
+    {
+        glfwSwapInterval(state);
+        m_window_props.vsync = state;
+    }
+
+    f64 window::get_time() const
+    {
+        return glfwGetTime();
+    }
+
     void* window::get_process_address() const
     {
         return glfwGetProcAddress;
