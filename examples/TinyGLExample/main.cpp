@@ -1,4 +1,7 @@
 #include "TinyGL.h"
+#include "events/app_event.h"
+#include "events/key_event.h"
+#include "events/mouse_event.h"
 
 namespace
 {
@@ -69,7 +72,7 @@ int main()
         // Render your scene here
         app.get_renderer()->clear_color(0.2f, 0.3f, 0.3f, 1.0f);
         app.get_renderer()->clear(TGL_COLOR_BUFFER_BIT | TGL_DEPTH_BUFFER_BIT);
-        app.draw_square(1.0f, 1.0f, 1.0f);
+        app.draw_triangle(1.0f, 1.0f, 1.0f);
         //app.draw_square(-1.0f, -1.0f, -1.0f);
         
         app.get_window()->swap_buffers();

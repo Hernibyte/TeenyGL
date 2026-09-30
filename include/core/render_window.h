@@ -3,7 +3,7 @@
 #include "core/window.h"
 #include "renderer/renderer.h"
 #include "platform/default_types.h"
-#include "renderer/shapes/shape.h"
+#include "renderer/render_objects/render_object_presets.h"
 
 namespace TGL::CORE
 {
@@ -25,8 +25,8 @@ namespace TGL::CORE
         std::shared_ptr<GFX::renderer> m_renderer;
         
         std::shared_ptr<GFX::shader_program> m_default_shader_program;
-        std::shared_ptr<SHAPE::triangle> triangle_shape;
-        std::shared_ptr<SHAPE::square> square_shape;
+        std::shared_ptr<GFX::UTILS::triangle> triangle_shape;
+        std::shared_ptr<GFX::UTILS::square> square_shape;
     };
     
 }

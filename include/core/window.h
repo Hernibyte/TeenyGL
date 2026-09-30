@@ -1,13 +1,8 @@
 ﻿#pragma once
 
-#include <memory>
-
 #include "platform/default_types.h"
 #include "events/event.h"
-#include "renderer/renderer.h"
-#include "events/app_event.h"
-#include "events/key_event.h"
-#include "events/mouse_event.h"
+#include "glm/gtx/io.hpp"
 
 struct GLFWwindow;
 
@@ -45,6 +40,9 @@ namespace TGL::CORE
         std::pair<f64, f64> get_mouse_position() const;
         f64 get_mouse_x() const { return get_mouse_position().first; }
         f64 get_mouse_y() const { return get_mouse_position().second; }
+        
+        i32 get_width() const { return m_window_props.width; };
+        i32 get_height() const { return m_window_props.height; };
 
     private:
         struct window_props

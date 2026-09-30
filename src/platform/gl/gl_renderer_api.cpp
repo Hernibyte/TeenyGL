@@ -17,9 +17,8 @@ namespace TGL::GL
         TGL_INFO("Glad initialized successfully!");
     }
 
-    void gl_renderer_api::draw_indexed(buffer_id vertex_array_id, i32 index_count, shader_id shader_program_id) const
+    void gl_renderer_api::draw_indexed(buffer_id vertex_array_id, i32 index_count) const
     {
-        glUseProgram(shader_program_id);
         glBindVertexArray(vertex_array_id);
         glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, nullptr);
     }

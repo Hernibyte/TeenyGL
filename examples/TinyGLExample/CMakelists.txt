@@ -1,5 +1,10 @@
 add_executable(TinyGLExample)
 
+target_compile_definitions(TinyGLExample
+    PRIVATE
+        GLM_ENABLE_EXPERIMENTAL
+)
+
 target_sources(TinyGLExample
     PRIVATE
         main.cpp

@@ -6,6 +6,7 @@
 
 namespace TGL::GFX
 {
+    
     shader_program::shader_program(cstr_ptr vertex_source, cstr_ptr fragment_source)
     {
         

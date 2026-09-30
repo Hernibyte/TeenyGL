@@ -1,11 +1,12 @@
 ﻿#include "core/window.h"
 
-#include <stdlib.h>
-
 #include <glad/gl.h>
+
+#include "events/app_event.h"
+#include "events/key_event.h"
+#include "events/mouse_event.h"
 #include "GLFW/glfw3.h"
 
-#include "renderer/render_object.h"
 #include "platform/log.h"
 #include "platform/assert.h"
 
@@ -233,4 +234,5 @@ namespace TGL::CORE
         glfwGetCursorPos(m_window_props.window, &xpos, &ypos);
         return std::make_pair((f64)xpos, (f64)ypos);
     }
+    
 }
