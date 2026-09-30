@@ -1,5 +1,7 @@
 #pragma once 
 
+#include "render_object.h"
+#include "shader.h"
 #include "core/window.h"
 #include "platform/default_types.h"
 #include "renderer/renderer_api.h"
@@ -14,7 +16,7 @@ namespace TGL::GFX
         renderer() = delete;
         renderer(CORE::window* in_window);
         
-        void draw_indexed(buffer_id vertex_array_id, i32 index_count, shader_id shader_program_id) const;
+        void submit(const std::shared_ptr<render_object>& render_object, const std::shared_ptr<shader_program>& shader_program) const;
         
         void set_camera(const std::shared_ptr<camera>& in_camera);
         

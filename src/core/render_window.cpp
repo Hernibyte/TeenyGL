@@ -34,7 +34,7 @@ namespace TGL::CORE
             }
         )";
         
-        m_default_shader_program = std::make_shared<GFX::shader_program>(vertex_shader_source.c_str(), fragment_shader_source.c_str());
+        m_default_shader_program = GFX::shader_program::create(vertex_shader_source.c_str(), fragment_shader_source.c_str());
         
         triangle_shape = std::make_shared<GFX::UTILS::triangle>();
         triangle_shape->set_shader_program_id(m_default_shader_program->get_shader_program_id());
@@ -50,19 +50,17 @@ namespace TGL::CORE
 
     void render_window::draw_triangle(f32 x, f32 y, f32 z) const
     {
-        m_renderer->draw_indexed(
-            triangle_shape->get_render_object()->get_buffer_id(), 
-            triangle_shape->get_render_object()->get_index_count(), 
-            triangle_shape->get_shader_program_id()
+        m_renderer->submit(
+            triangle_shape->get_render_object(),
+            m_default_shader_program
         );
     }
 
     void render_window::draw_square(f32 x, f32 y, f32 z) const
     {
-        m_renderer->draw_indexed(
-            square_shape->get_render_object()->get_buffer_id(), 
-            square_shape->get_render_object()->get_index_count(),
-            square_shape->get_shader_program_id()
+        m_renderer->submit(
+            square_shape->get_render_object(),
+            m_default_shader_program
         );
     }
     

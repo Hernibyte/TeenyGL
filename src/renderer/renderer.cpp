@@ -17,18 +17,15 @@ namespace TGL::GFX
         //m_camera = std::make_shared<camera>(-1.f, 1.f, -1.f, 1.f, -100.f, 100.f);
     }
 
-    void renderer::draw_indexed(buffer_id vertex_array_id, i32 index_count, shader_id shader_program_id) const
+    void renderer::submit(const std::shared_ptr<render_object>& render_object, const std::shared_ptr<shader_program>& shader_program) const
     {
-        glUseProgram(shader_program_id);
+        shader_program->bind();
         
-        // set camera
-        i32 u_view_location = glGetUniformLocation(shader_program_id, "u_view");
-        i32 u_projection_location = glGetUniformLocation(shader_program_id, "u_projection");
+        shader_program->set_uniform_matrix4fv("u_view", m_camera->get_view());
+        shader_program->set_uniform_matrix4fv("u_projection", m_camera->get_projection());
         
-        glUniformMatrix4fv(u_view_location, 1, GL_FALSE, glm::value_ptr(m_camera->get_view()));
-        glUniformMatrix4fv(u_projection_location, 1, GL_FALSE, glm::value_ptr(m_camera->get_projection()));
-        
-        m_renderer_api->draw_indexed(vertex_array_id, index_count);
+        render_object->bind();
+        m_renderer_api->draw_indexed(render_object->get_index_count());
     }
 
     void renderer::set_camera(const std::shared_ptr<camera>& in_camera)
