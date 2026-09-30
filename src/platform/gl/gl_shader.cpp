@@ -1,14 +1,18 @@
 #include "platform/gl/gl_shader.h"
 
 #include "glad/gl.h"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "platform/log.h"
 
 namespace TGL::GL
 {
-
-    shader_id gl_shader::create(cstr_ptr vertex_source, cstr_ptr fragment_source)
+    
+    gl_shader::gl_shader(cstr_ptr vertex_source, cstr_ptr fragment_source)
     {
+        m_vertex_source = vertex_source;
+        m_fragment_source = fragment_source;
+        
         shader_id shader_vertex_id = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(shader_vertex_id, 1, &vertex_source, NULL);
         glCompileShader(shader_vertex_id);
@@ -50,11 +54,36 @@ namespace TGL::GL
         glDeleteShader(shader_vertex_id);
         glDeleteShader(shader_fragment_id);
 
-        return shader_program_id;
+        m_shader_program_id = shader_program_id;
+    }
+    
+    gl_shader::~gl_shader()
+    {
+        gl_shader::clear();
     }
 
-    void gl_shader::clear(shader_id shader_program_id)
+    void gl_shader::clear()
     {
-        glDeleteProgram(shader_program_id);
+        glDeleteProgram(m_shader_program_id);
     }
+
+    void gl_shader::bind()
+    {
+        glUseProgram(m_shader_program_id);
+    }
+
+    void gl_shader::unbind()
+    {
+        glUseProgram(0);
+    }
+
+    bool gl_shader::set_uniform_matrix4fv(cstr_ptr name, const glm::mat4& matrix)
+    {
+        i32 u_location = glGetUniformLocation(m_shader_program_id, name);
+        if (u_location == -1) return false;
+        
+        glUniformMatrix4fv(u_location, 1, GL_FALSE, glm::value_ptr(matrix));
+        return true;
+    }
+    
 }
