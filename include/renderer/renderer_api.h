@@ -23,7 +23,7 @@ namespace TGL::GFX
         virtual ~renderer_api();
         
         virtual void init(void* process_address_ptr) const = 0;
-        virtual void draw_indexed(buffer_id vertex_array_id, i32 index_count) const = 0;
+        virtual void draw_indexed(const i32 index_count) const = 0;
         virtual void clear_color(const  f32 red, const f32 green, const f32 blue, const f32 alpha) const = 0;
         virtual void clear(const  i32 mask) const = 0;
         
