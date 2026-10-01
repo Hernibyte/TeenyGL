@@ -1,5 +1,7 @@
 ﻿#include "renderer/render_object.h"
 
+#include "glm/gtx/transform.hpp"
+
 namespace TGL::GFX
 {
     
@@ -41,6 +43,26 @@ namespace TGL::GFX
         bind();
         m_index_buffer = index_buffer::create(index_buffer_info);
         unbind();
+    }
+
+    void render_object::translate(const glm::vec3& translation)
+    {
+        m_transform.translate(translation);
+    }
+
+    void render_object::rotate(const f32 angle, const glm::vec3& axis)
+    {
+        m_transform.rotate(angle, axis);
+    }
+
+    void render_object::rotate(const glm::vec3& rotation)
+    {
+        m_transform.rotate(rotation);
+    }
+
+    void render_object::scale(const glm::vec3& scale)
+    {
+       m_transform.scale(scale);
     }
 
     void render_object::bind() const

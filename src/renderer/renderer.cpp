@@ -23,6 +23,7 @@ namespace TGL::GFX
         
         shader_program->set_uniform_matrix4fv("u_view", m_camera->get_view());
         shader_program->set_uniform_matrix4fv("u_projection", m_camera->get_projection());
+        shader_program->set_uniform_matrix4fv("u_model", render_object->get_transform().get_transform_matrix());
         
         render_object->bind();
         m_renderer_api->draw_indexed(render_object->get_index_count());

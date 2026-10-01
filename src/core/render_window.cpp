@@ -8,22 +8,22 @@ namespace TGL::CORE
         m_window = std::make_shared<CORE::window>(width, height, title);
         m_renderer = std::make_shared<GFX::renderer>(m_window.get());
         
-        std::string vertex_shader_source = R"(
+        const std::string vertex_shader_source = R"(
             #version 330 core
 
             layout (location = 0) in vec3 a_position;
 
             uniform mat4 u_projection;
             uniform mat4 u_view;
+            uniform mat4 u_model;
 
             void main()
             {
-                gl_Position = u_projection * u_view * vec4(a_position, 1.0);
-                //gl_Position = vec4(a_position, 1.0);
+                gl_Position = u_projection * u_view * u_model * vec4(a_position, 1.0);
             }
         )";
     
-        std::string fragment_shader_source = R"(
+        const std::string fragment_shader_source = R"(
             #version 330 core
 
             out vec4 out_Color;
@@ -51,7 +51,7 @@ namespace TGL::CORE
     void render_window::draw_triangle(f32 x, f32 y, f32 z) const
     {
         m_renderer->submit(
-            triangle_shape->get_render_object(),
+            triangle_shape,
             m_default_shader_program
         );
     }
@@ -59,7 +59,7 @@ namespace TGL::CORE
     void render_window::draw_square(f32 x, f32 y, f32 z) const
     {
         m_renderer->submit(
-            square_shape->get_render_object(),
+            square_shape,
             m_default_shader_program
         );
     }
