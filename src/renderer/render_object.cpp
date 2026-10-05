@@ -11,7 +11,7 @@ namespace TGL::GFX
         m_vertex_array->bind();
         m_vertex_array->unbind();
     }
-    
+
     render_object::~render_object()
     {
         
@@ -48,6 +48,11 @@ namespace TGL::GFX
     void render_object::translate(const glm::vec3& translation)
     {
         m_transform.translate(translation);
+    }
+
+    void render_object::set_position(const glm::vec3& position)
+    {
+        m_transform.set_position(position);
     }
 
     void render_object::rotate(const f32 angle, const glm::vec3& axis)

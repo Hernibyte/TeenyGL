@@ -14,8 +14,8 @@ namespace TGL::CORE
         render_window(i32 width, i32 height, cstr_ptr title);
         ~render_window();
         
-        void draw_triangle(f32 x, f32 y, f32 z) const;
-        void draw_square(f32 x, f32 y, f32 z) const;
+        void draw_triangle(f32 x, f32 y, f32 z, f32 r = .5f, f32 g = .1, f32 b = .5f, f32 a = 1.f) const;
+        void draw_square(f32 x, f32 y, f32 z, f32 r = .5f, f32 g = .1, f32 b = .5f, f32 a = 1.f) const;
         
         std::shared_ptr<CORE::window> get_window() const { return m_window; };
         std::shared_ptr<GFX::renderer> get_renderer() const { return m_renderer; };

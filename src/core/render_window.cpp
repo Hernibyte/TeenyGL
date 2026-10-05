@@ -26,11 +26,13 @@ namespace TGL::CORE
         const std::string fragment_shader_source = R"(
             #version 330 core
 
-            out vec4 out_Color;
+            out vec4 color;
+
+            uniform vec4 u_color;
             
             void main()
             {
-                out_Color = vec4(0.8, 0.2, 0.3, 1.0);
+                color = u_color;
             }
         )";
         
@@ -48,16 +50,20 @@ namespace TGL::CORE
         
     }
 
-    void render_window::draw_triangle(f32 x, f32 y, f32 z) const
+    void render_window::draw_triangle(f32 x, f32 y, f32 z, f32 r, f32 g, f32 b, f32 a) const
     {
+        triangle_shape->set_position( { x, y, z } );
+        triangle_shape->set_color( { r, g, b, a } );
         m_renderer->submit(
             triangle_shape,
             m_default_shader_program
         );
     }
 
-    void render_window::draw_square(f32 x, f32 y, f32 z) const
+    void render_window::draw_square(f32 x, f32 y, f32 z, f32 r, f32 g, f32 b, f32 a) const
     {
+        square_shape->translate( { x, y, z } );
+        square_shape->set_color( { r, g, b, a } );
         m_renderer->submit(
             square_shape,
             m_default_shader_program
