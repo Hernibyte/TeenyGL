@@ -20,7 +20,8 @@ namespace TGL::GFX
         virtual void bind() = 0;
         virtual void unbind() = 0;
         
-        virtual bool set_uniform_matrix4fv(cstr_ptr name, const glm::mat4& matrix) = 0;
+        virtual bool set_matrix4fv(cstr_ptr name, const glm::mat4& matrix) = 0;
+        virtual bool set_vec4f(cstr_ptr name, const glm::vec4& vector) = 0;
         
         shader_id get_shader_program_id() const { return m_shader_program_id; }
         std::string get_vertex_source() const { return m_vertex_source; }

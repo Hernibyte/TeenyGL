@@ -1,6 +1,5 @@
 #include "renderer/renderer.h"
 
-#include "glad/gl.h"
 #include "glm/gtc/type_ptr.hpp"
 
 namespace TGL::GFX
@@ -21,9 +20,10 @@ namespace TGL::GFX
     {
         shader_program->bind();
         
-        shader_program->set_uniform_matrix4fv("u_view", m_camera->get_view());
-        shader_program->set_uniform_matrix4fv("u_projection", m_camera->get_projection());
-        shader_program->set_uniform_matrix4fv("u_model", render_object->get_transform().get_transform_matrix());
+        shader_program->set_matrix4fv("u_view", m_camera->get_view());
+        shader_program->set_matrix4fv("u_projection", m_camera->get_projection());
+        shader_program->set_matrix4fv("u_model", render_object->get_transform()->get_transform_matrix());
+        shader_program->set_vec4f("u_color", render_object->get_color());
         
         render_object->bind();
         m_renderer_api->draw_indexed(render_object->get_index_count());

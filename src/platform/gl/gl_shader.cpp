@@ -77,12 +77,21 @@ namespace TGL::GL
         glUseProgram(0);
     }
 
-    bool gl_shader::set_uniform_matrix4fv(cstr_ptr name, const glm::mat4& matrix)
+    bool gl_shader::set_matrix4fv(cstr_ptr name, const glm::mat4& matrix)
     {
-        i32 u_location = glGetUniformLocation(m_shader_program_id, name);
+        const i32 u_location = glGetUniformLocation(m_shader_program_id, name);
         if (u_location == -1) return false;
         
         glUniformMatrix4fv(u_location, 1, GL_FALSE, glm::value_ptr(matrix));
+        return true;
+    }
+
+    bool gl_shader::set_vec4f(cstr_ptr name, const glm::vec4& vector)
+    {
+        const i32 u_location = glGetUniformLocation(m_shader_program_id, name);
+        if (u_location == -1) return false;
+        
+        glUniform4f(u_location, vector.x, vector.y, vector.z, vector.w);
         return true;
     }
     

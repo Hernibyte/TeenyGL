@@ -16,7 +16,8 @@ namespace TGL::GL
         virtual void bind() override;
         virtual void unbind() override;
         
-        virtual bool set_uniform_matrix4fv(cstr_ptr name, const glm::mat4& matrix) override;
+        virtual bool set_matrix4fv(cstr_ptr name, const glm::mat4& matrix) override;
+        virtual bool set_vec4f(cstr_ptr name, const glm::vec4& vector) override;
         
     };
 }
