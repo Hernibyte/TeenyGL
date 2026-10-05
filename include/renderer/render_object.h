@@ -20,8 +20,14 @@ namespace TGL::GFX
         
         void translate(const glm::vec3& translate)
         {
-            m_position = translate;
+            m_position += translate;
             m_transform_matrix = glm::translate(m_transform_matrix, translate);
+        }
+        
+        void set_position(const glm::vec3& position)
+        {
+            m_position = position;
+            m_transform_matrix = glm::translate(glm::mat4(1.0f), position);
         }
         
         void rotate(const f32 angle, const glm::vec3& axis)
@@ -73,15 +79,19 @@ namespace TGL::GFX
         void set_index_buffer(const index_buffer::index_buffer_info& index_buffer_info);
         
         void set_transform(const transform& new_transform) { m_transform = new_transform; }
-        transform get_transform() const { return m_transform; }
+        transform* get_transform() { return &m_transform; }
         
         void translate(const glm::vec3& translation);
+        void set_position(const glm::vec3& position);
         void rotate(const f32 angle, const glm::vec3& axis);
         void rotate(const glm::vec3& rotation);
         void scale(const glm::vec3& scale);
         
         void bind() const;
         void unbind() const;
+        
+        void set_color(const glm::vec4& color) { m_color = color; }
+        glm::vec4 get_color() const { return m_color; }
         
         buffer_id get_buffer_id() const
         {
@@ -95,10 +105,12 @@ namespace TGL::GFX
         i32 get_index_count() const  { return m_index_buffer->get_count(); }
         
     private:
+        glm::vec4 m_color = glm::vec4(0.5f, 0.1f, 0.5f, 1.0f);
+        
         std::unique_ptr<vertex_array> m_vertex_array;
         std::vector<std::shared_ptr<vertex_buffer>> m_vertex_buffers;
         std::shared_ptr<index_buffer> m_index_buffer;
-        
+
         transform m_transform;
         
     };
