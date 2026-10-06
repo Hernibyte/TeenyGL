@@ -1,6 +1,7 @@
 ﻿#include "renderer/renderer_api.h"
 
 #include "platform/assert.h"
+#include "platform/log.h"
 #include "platform/gl/gl_renderer_api.h"
 
 namespace TGL::GFX

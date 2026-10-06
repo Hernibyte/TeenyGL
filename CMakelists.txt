@@ -53,6 +53,19 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+# stb_image
+FetchContent_Declare(
+    stb_image
+    GIT_REPOSITORY https://github.com/nothings/stb.git
+    GIT_TAG master
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(stb_image)
+
+add_library(stb_image INTERFACE)
+target_include_directories(stb_image INTERFACE ${stb_image_SOURCE_DIR})
+
 # glad
 add_subdirectory(third_party/glad)
 
@@ -72,6 +85,7 @@ target_compile_definitions(TinyGL
 PRIVATE
     SPDLOG_COMPILED_LIB
     TINYGL_BUILD_SHARED
+    TGL_ENABLE_ASSERTS
     GLM_ENABLE_EXPERIMENTAL
 )
 
@@ -93,6 +107,7 @@ target_sources(TinyGL
             include/platform/gl/gl_context.h
             include/platform/gl/gl_renderer_api.h
             include/platform/gl/gl_shader.h
+            include/platform/gl/gl_texture_2d.h
             include/platform/gl/gl_vertex_array.h
             include/platform/assert.h
             include/platform/default_types.h
@@ -105,6 +120,7 @@ target_sources(TinyGL
             include/renderer/renderer.h
             include/renderer/renderer_api.h
             include/renderer/shader.h
+            include/renderer/texture.h
             include/renderer/vertex_array.h
             include/TinyGL.h
     PRIVATE
@@ -114,6 +130,7 @@ target_sources(TinyGL
         src/platform/gl/gl_context.cpp
         src/platform/gl/gl_renderer_api.cpp
         src/platform/gl/gl_shader.cpp
+        src/platform/gl/gl_texture_2d.cpp
         src/platform/gl/gl_vertex_array.cpp
         src/platform/log.cpp
         src/renderer/render_objects/render_object_presets.cpp
@@ -124,6 +141,7 @@ target_sources(TinyGL
         src/renderer/renderer.cpp
         src/renderer/renderer_api.cpp
         src/renderer/shader.cpp
+        src/renderer/texture.cpp
         src/renderer/vertex_array.cpp
 )
 
@@ -133,4 +151,5 @@ target_link_libraries(TinyGL
         glm::glm
         spdlog::spdlog
         glad
+        stb_image
 )

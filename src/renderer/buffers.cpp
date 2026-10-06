@@ -3,6 +3,7 @@
 #include "glad/gl.h"
 
 #include "platform/assert.h"
+#include "platform/log.h"
 #include "renderer/renderer_api.h"
 #include "platform/gl/gl_buffers.h"
 

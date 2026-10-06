@@ -3,6 +3,7 @@ add_executable(TinyGLExample)
 target_compile_definitions(TinyGLExample
     PRIVATE
         GLM_ENABLE_EXPERIMENTAL
+        TGL_ENABLE_ASSERTS
 )
 
 target_sources(TinyGLExample

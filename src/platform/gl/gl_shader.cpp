@@ -94,5 +94,13 @@ namespace TGL::GL
         glUniform4f(u_location, vector.x, vector.y, vector.z, vector.w);
         return true;
     }
-    
+
+    bool gl_shader::set_int(cstr_ptr name, const int& num)
+    {
+        const i32 u_location = glGetUniformLocation(m_shader_program_id, name);
+        if (u_location == -1) return false;
+        
+        glUniform1i(u_location, num);
+        return true;
+    }
 }

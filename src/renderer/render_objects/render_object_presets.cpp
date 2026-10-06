@@ -33,10 +33,10 @@ namespace TGL::GFX::UTILS
     square::square()
     {
         float vertices[4 * 3] = {
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f,  -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f
+             0.5f,  0.5f, 0.0f,
+             0.5f, -0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            -0.5f,  0.5f, 0.0f
         };
     
         i32 indices[3 * 2] = {
@@ -106,6 +106,45 @@ namespace TGL::GFX::UTILS
         
         add_vertex_buffer(vertex_buffer_info);
         set_index_buffer(index_buffer_info);
+    }
+
+    sprite::sprite(const std::string& image_path)
+    {
+        m_texture = texture_2d::create(image_path);
+        
+        float vertices[4 * 5] = {
+             0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 
+             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+        };
+    
+        i32 indices[3 * 2] = {
+            0, 1, 3,
+            1, 2, 3
+        };
+    
+        TGL::GFX::vertex_buffer::vertex_buffer_info vertex_buffer_info = {
+            vertices, 
+            sizeof(vertices),
+            { 
+                { TGL::GFX::shader_data_type::float_3, "a_position" }, 
+                { TGL::GFX::shader_data_type::float_2, "a_texture_coord" } 
+            }
+        };
+        
+        TGL::GFX::index_buffer::index_buffer_info index_buffer_info = {
+            indices, 
+            sizeof(indices)
+        };
+        
+        add_vertex_buffer(vertex_buffer_info);
+        set_index_buffer(index_buffer_info);
+    }
+
+    void sprite::bind_texture(const u32 slot) const
+    {
+        m_texture->bind();
     }
     
 }

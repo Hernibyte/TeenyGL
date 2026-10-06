@@ -1,14 +1,13 @@
-﻿#include "renderer/vertex_array.h"
+﻿#include "renderer/texture.h"
 
 #include "platform/assert.h"
 #include "platform/log.h"
+#include "platform/gl/gl_texture_2d.h"
 #include "renderer/renderer_api.h"
-
-#include "platform/gl/gl_vertex_array.h"
 
 namespace TGL::GFX
 {
-    std::unique_ptr<vertex_array> vertex_array::create()
+    std::shared_ptr<texture_2d> texture_2d::create(const std::string& file_path)
     {
         switch (renderer_api::get_api())
         {
@@ -18,7 +17,7 @@ namespace TGL::GFX
         
         case GFX::renderer_api::gfx_api::opengl:
             //
-            return std::make_unique<GL::gl_vertex_array>();
+            return std::make_shared<GL::gl_texture_2d>(file_path);
             break;
         
         default:
@@ -26,7 +25,7 @@ namespace TGL::GFX
             break;
         }
             
-        return nullptr;
+        return nullptr;    
     }
     
 }

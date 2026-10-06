@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cassert>
+#include "platform/log.h"
 
 #define CXX_STATIC_ASSERT(expr) \
     static_assert(expr, \
@@ -23,7 +24,7 @@
 #endif
 
 // 2. Define the assertion macro based on build configuration
-#ifndef TGL_ENABLE_ASSERTS
+#ifdef TGL_ENABLE_ASSERTS
     // Debug Mode: Active assertion
     #define TGL_ASSERT(condition, message) \
         do { \
@@ -41,7 +42,7 @@
     #define TGL_ASSERT(condition, message) do { (void)sizeof(condition); } while(0)
 #endif
 
-#ifndef TGL_ENABLE_ASSERTS
+#ifdef TGL_ENABLE_ASSERTS
     // Debug Mode: Active assertion
     #define TGL_CORE_ASSERT(condition, message) \
         do { \

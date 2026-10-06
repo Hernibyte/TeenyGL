@@ -2,6 +2,7 @@
 
 #include "renderer/render_object.h"
 #include "renderer/shader.h"
+#include "renderer/texture.h"
 
 namespace TGL::GFX::UTILS
 {
@@ -33,6 +34,18 @@ namespace TGL::GFX::UTILS
     {
     public:
         explicit cube();
+    };
+    
+    class sprite : public render_object_preset
+    {
+    public:
+        explicit sprite(const std::string& image_path);
+        
+        void bind_texture(const u32 slot = 0) const;
+        
+    private:
+        std::shared_ptr<texture_2d> m_texture;
+        
     };
     
 }
