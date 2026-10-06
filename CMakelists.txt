@@ -109,6 +109,7 @@ target_sources(TeenyGL
             # Core
             include/core/render_window.h
             include/core/core.h
+            include/core/timestep.h
             include/core/window.h
 
             # Events
