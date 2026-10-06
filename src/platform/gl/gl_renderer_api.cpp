@@ -14,6 +14,9 @@ namespace TGL::GL
         int status = gladLoadGL((GLADloadfunc)process_address_ptr);
         TGL_CORE_ASSERT_LOG(status, "Failed to initialize Glad!");
         
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
         TGL_INFO("Glad initialized successfully!");
     }
 

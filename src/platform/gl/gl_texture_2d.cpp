@@ -18,9 +18,22 @@ namespace TGL::GL
         TGL_CORE_ASSERT_LOG(data, "Failed to load image!");
         m_width = width; m_height = height;
         
+        GLenum format = 0;
+        GLint internal_format = 0;
+        if (channels == 3)
+        {
+            format = GL_RGB;
+            internal_format = GL_RGB8;
+        }
+        else if (channels == 4)
+        {
+            format = GL_RGBA;
+            internal_format = GL_RGBA8;
+        }
+        
         glGenTextures(1, &m_id);
         glBindTexture(GL_TEXTURE_2D, m_id);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
