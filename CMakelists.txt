@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5...4.0)
-project(TinyGL VERSION 0.0.1 LANGUAGES CXX)
+project(TeenyGL VERSION 0.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 
-option(TINYGL_BUILD_EXAMPLES "Build TinyGL example programs" ON)
+option(TEENYGL_BUILD_EXAMPLES "Build TinyGL example programs" ON)
 
 # ========================
 # CMake Dependencies
@@ -72,24 +72,24 @@ add_subdirectory(third_party/glad)
 # ========================
 # Examples
 # ========================
-if (TINYGL_BUILD_EXAMPLES)
+if (TEENYGL_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
 # ========================
 # Librería principal: TinyGL
 # ========================
-add_library(TinyGL STATIC)
+add_library(TeenyGL STATIC)
 
-target_compile_definitions(TinyGL
+target_compile_definitions(TeenyGL
 PRIVATE
     SPDLOG_COMPILED_LIB
-    TINYGL_BUILD_SHARED
+    TEENYGL_BUILD_SHARED
     TGL_ENABLE_ASSERTS
     GLM_ENABLE_EXPERIMENTAL
 )
 
-target_sources(TinyGL
+target_sources(TeenyGL
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS ./include
@@ -145,7 +145,7 @@ target_sources(TinyGL
         src/renderer/vertex_array.cpp
 )
 
-target_link_libraries(TinyGL
+target_link_libraries(TeenyGL
     PUBLIC
         glfw
         glm::glm

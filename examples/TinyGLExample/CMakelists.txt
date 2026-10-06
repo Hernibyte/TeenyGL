@@ -13,5 +13,5 @@ target_sources(TinyGLExample
 
 target_link_libraries(TinyGLExample
     PRIVATE
-        TinyGL
+        TeenyGL
 )
