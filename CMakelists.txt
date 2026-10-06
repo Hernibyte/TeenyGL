@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 
-option(TEENYGL_BUILD_EXAMPLES "Build TinyGL example programs" ON)
+option(TEENYGL_BUILD_EXAMPLES "Build TinyGL example programs" ${PROJECT_IS_TOP_LEVEL})
 
 # ========================
 # CMake Dependencies
