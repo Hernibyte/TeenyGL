@@ -55,3 +55,4 @@ All feedback are welcome!
 - glad
 - glm
 - spdlog
+- stb_image
