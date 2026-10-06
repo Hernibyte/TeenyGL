@@ -20,51 +20,58 @@ include(FetchContent)
 # ========================
 
 # glfw
-FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.4
-    GIT_SHALLOW TRUE
-)
+if (NOT TARGET glfw)
+    FetchContent_Declare(
+        glfw
+        GIT_REPOSITORY https://github.com/glfw/glfw.git
+        GIT_TAG 3.4
+        GIT_SHALLOW TRUE
+    )
 
-# 1. Configure GLFW options BEFORE declaring or making available
-set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLFW example programs")
-set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
-set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
-set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
+    # 1. Configure GLFW options BEFORE declaring or making available
+    set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLFW example programs")
+    set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
+    set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
+    set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
 
-FetchContent_MakeAvailable(glfw)
+    FetchContent_MakeAvailable(glfw)
+endif()
 
 # glm
-FetchContent_Declare(
-    glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG 1.0.1
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(glm)
+if (NOT TARGET glm)
+    FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm.git
+        GIT_TAG 1.0.1
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(glm)
+endif()
 
 # spdlog
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog.git
-    GIT_TAG v1.15.0
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(spdlog)
+if (NOT TARGET spdlog)
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG v1.15.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(spdlog)
+endif()
 
 # stb_image
-FetchContent_Declare(
-    stb_image
-    GIT_REPOSITORY https://github.com/nothings/stb.git
-    GIT_TAG master
-    GIT_SHALLOW TRUE
-)
-
-FetchContent_MakeAvailable(stb_image)
-
-add_library(stb_image INTERFACE)
-target_include_directories(stb_image INTERFACE ${stb_image_SOURCE_DIR})
+if (NOT TARGET stb_image)
+    FetchContent_Declare(
+        stb_image
+        GIT_REPOSITORY https://github.com/nothings/stb.git
+        GIT_TAG master
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(stb_image)
+    
+    add_library(stb_image INTERFACE)
+    target_include_directories(stb_image INTERFACE ${stb_image_SOURCE_DIR})
+endif()
 
 # glad
 add_subdirectory(third_party/glad)
@@ -80,11 +87,13 @@ endif()
 # Librería principal: TinyGL
 # ========================
 add_library(TeenyGL STATIC)
+add_library(TeenyGL::TeenyGL ALIAS TeenyGL)
+
+target_compile_features(TeenyGL PUBLIC cxx_std_20)
 
 target_compile_definitions(TeenyGL
 PRIVATE
     SPDLOG_COMPILED_LIB
-    TEENYGL_BUILD_SHARED
     TGL_ENABLE_ASSERTS
     GLM_ENABLE_EXPERIMENTAL
 )
@@ -94,15 +103,25 @@ target_sources(TeenyGL
         FILE_SET HEADERS
         BASE_DIRS ./include
         FILES
+            # Root
+            include/TeenyGL.h
+            
+            # Core
             include/core/render_window.h
             include/core/core.h
             include/core/window.h
+
+            # Events
             include/events/event.h
             include/events/app_event.h
             include/events/key_event.h
             include/events/mouse_event.h
+
+            # Input
             include/input_code/mouse.h
             include/input_code/keyboard.h
+
+            # Platform
             include/platform/gl/gl_buffers.h
             include/platform/gl/gl_context.h
             include/platform/gl/gl_renderer_api.h
@@ -112,6 +131,8 @@ target_sources(TeenyGL
             include/platform/assert.h
             include/platform/default_types.h
             include/platform/log.h
+
+            # Renderer
             include/renderer/render_objects/render_object_presets.h
             include/renderer/buffers.h
             include/renderer/camera.h
@@ -122,10 +143,13 @@ target_sources(TeenyGL
             include/renderer/shader.h
             include/renderer/texture.h
             include/renderer/vertex_array.h
-            include/TinyGL.h
+
     PRIVATE
+        # Core
         src/core/render_window.cpp
         src/core/window.cpp
+        
+        # Platform
         src/platform/gl/gl_buffers.cpp
         src/platform/gl/gl_context.cpp
         src/platform/gl/gl_renderer_api.cpp
@@ -133,6 +157,8 @@ target_sources(TeenyGL
         src/platform/gl/gl_texture_2d.cpp
         src/platform/gl/gl_vertex_array.cpp
         src/platform/log.cpp
+
+        # Renderer
         src/renderer/render_objects/render_object_presets.cpp
         src/renderer/buffers.cpp
         src/renderer/camera.cpp
@@ -145,11 +171,21 @@ target_sources(TeenyGL
         src/renderer/vertex_array.cpp
 )
 
+# -----------------------------------------------------------------------------
+# Include directories
+# -----------------------------------------------------------------------------
+target_include_directories(TeenyGL
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
 target_link_libraries(TeenyGL
     PUBLIC
-        glfw
         glm::glm
         spdlog::spdlog
+    PRIVATE
+        glfw
         glad
         stb_image
 )
