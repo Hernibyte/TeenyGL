@@ -75,13 +75,10 @@ namespace TGL::CORE
         m_textured_shader_program = GFX::shader_program::create(texture_vertex_shader_source.c_str(), texture_fragment_shader_source.c_str());
         
         triangle_shape = std::make_shared<GFX::UTILS::triangle>();
-        triangle_shape->set_shader_program_id(m_default_shader_program->get_shader_program_id());
         
         square_shape = std::make_shared<GFX::UTILS::square>();
-        square_shape->set_shader_program_id(m_default_shader_program->get_shader_program_id());
         
         //square_sprite = std::make_shared<GFX::UTILS::sprite>("pnggato.png");
-        //square_sprite->set_shader_program_id(m_textured_shader_program->get_shader_program_id());
     }
 
     render_window::~render_window()

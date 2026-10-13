@@ -28,6 +28,8 @@ namespace TGL::CORE
         void close();
         bool should_close();
         
+        void set_title(std::string title);
+        
         void swap_buffers() const;
         void poll_events() const;
         void set_vsync(bool state);

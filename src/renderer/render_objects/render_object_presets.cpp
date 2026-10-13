@@ -26,6 +26,12 @@ namespace TGL::GFX::UTILS
             3 * sizeof(u32)
         };
         
+        set_prebind_event([&](const std::shared_ptr<shader_program>& shader_program)
+        {
+            shader_program->set_matrix4fv("u_model", get_transform()->get_transform_matrix());
+            shader_program->set_vec4f("u_color", get_color());
+        });
+        
         add_vertex_buffer(vertex_buffer_info);
         set_index_buffer(index_buffer_info);
     }
@@ -54,6 +60,12 @@ namespace TGL::GFX::UTILS
             indices, 
             6 * sizeof(i32)
         };
+        
+        set_prebind_event([&](const std::shared_ptr<shader_program>& shader_program)
+        {
+            shader_program->set_matrix4fv("u_model", get_transform()->get_transform_matrix());
+            shader_program->set_vec4f("u_color", get_color());
+        });
         
         add_vertex_buffer(vertex_buffer_info);
         set_index_buffer(index_buffer_info);
@@ -104,6 +116,12 @@ namespace TGL::GFX::UTILS
             sizeof(indices)
         };
         
+        set_prebind_event([&](const std::shared_ptr<shader_program>& shader_program)
+        {
+            shader_program->set_matrix4fv("u_model", get_transform()->get_transform_matrix());
+            shader_program->set_vec4f("u_color", get_color());
+        });
+        
         add_vertex_buffer(vertex_buffer_info);
         set_index_buffer(index_buffer_info);
     }
@@ -137,6 +155,14 @@ namespace TGL::GFX::UTILS
             indices, 
             sizeof(indices)
         };
+        
+        set_prebind_event([&](const std::shared_ptr<shader_program>& shader_program)
+        {
+            m_texture->bind();
+            
+            shader_program->set_matrix4fv("u_model", get_transform()->get_transform_matrix());
+            shader_program->set_vec4f("u_color", get_color());
+        });
         
         add_vertex_buffer(vertex_buffer_info);
         set_index_buffer(index_buffer_info);

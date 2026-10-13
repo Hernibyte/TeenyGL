@@ -1,4 +1,5 @@
 #include "TeenyGL.h"
+#include "../../build/vs2026-debug/_deps/stb_image-src/stb_image.h"
 
 TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
 
@@ -66,6 +67,7 @@ int main()
 {
     //TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
     app.get_window()->set_on_event_callback(on_event);
+    app.get_window()->set_vsync(false);
     
     float last_frame_time = 0.f;
     
@@ -76,8 +78,9 @@ int main()
         last_frame_time = time;
         
         TGL_INFO("Delta time: {0}s ({1}ms)", ts.get_seconds(), ts.get_milliseconds());
+        app.get_window()->set_title("FPS: " + std::to_string(1 / ts.get_seconds()));
         
-        app.get_renderer()->begin_scene();
+        //app.get_renderer()->begin_scene();
         
         // Render your scene here
         app.get_renderer()->clear_color(0.2f, 0.3f, 0.3f, 1.0f);

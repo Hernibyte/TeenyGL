@@ -16,9 +16,9 @@ namespace TGL::GFX
         //m_camera = std::make_shared<camera>(-1.f, 1.f, -1.f, 1.f, -100.f, 100.f);
     }
 
-    void renderer::begin_scene()
+    void renderer::begin_scene(const std::shared_ptr<camera>& in_camera)
     {
-        
+        m_camera = in_camera;
     }
 
     void renderer::end_scene()
@@ -34,9 +34,9 @@ namespace TGL::GFX
         m_shader_programs.insert({ shader_program->get_shader_program_id(), shader_program });
     }
 
-    void renderer::set_camera(const std::shared_ptr<camera>& in_camera)
+    void renderer::draw_raw_indexed(const i32 index_count) const
     {
-        m_camera = in_camera;
+        m_renderer_api->draw_indexed(index_count);
     }
 
     void renderer::clear_color(const f32 red, const f32 green, const f32 blue, const f32 alpha) const
@@ -67,8 +67,7 @@ namespace TGL::GFX
             {
                 if (render_object.second.second != shader_program.first) continue;
                 
-                 shader_program.second->set_matrix4fv("u_model", render_object.second.first->get_transform()->get_transform_matrix());
-                 shader_program.second->set_vec4f("u_color", render_object.second.first->get_color());
+                render_object.second.first->call_prebind_event(shader_program.second);
                 
                 render_object.second.first->bind();
                 

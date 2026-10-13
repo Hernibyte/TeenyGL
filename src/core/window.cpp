@@ -191,6 +191,11 @@ namespace TGL::CORE
         return glfwWindowShouldClose(m_window_props.window);
     }
 
+    void window::set_title(std::string title)
+    {
+        glfwSetWindowTitle(m_window_props.window, title.c_str());
+    }
+
     void window::swap_buffers() const
     {
         glfwSwapBuffers(m_window_props.window);

@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "shader.h"
 #include "glm/glm.hpp"
 #include "glm/gtx/transform.hpp"
 
@@ -70,7 +71,7 @@ namespace TGL::GFX
     {
     public:
         render_object();
-        ~render_object();
+        virtual ~render_object();
         
         void add_vertex_buffer(const std::shared_ptr<vertex_buffer>& vertex_buffer);
         void add_vertex_buffer(const vertex_buffer::vertex_buffer_info& vertex_buffer_info);
@@ -87,8 +88,11 @@ namespace TGL::GFX
         void rotate(const glm::vec3& rotation);
         void scale(const glm::vec3& scale);
         
-        void bind() const;
-        void unbind() const;
+        virtual void bind() const;
+        virtual void unbind() const;
+        
+        void set_prebind_event(const std::function<void(std::shared_ptr<shader_program>)>& callback) { m_prebind_event = callback; }
+        void call_prebind_event(const std::shared_ptr<shader_program>& shader_program) const { m_prebind_event(shader_program); }
         
         void set_color(const glm::vec4& color) { m_color = color; }
         glm::vec4 get_color() const { return m_color; }
@@ -110,8 +114,10 @@ namespace TGL::GFX
         std::unique_ptr<vertex_array> m_vertex_array;
         std::vector<std::shared_ptr<vertex_buffer>> m_vertex_buffers;
         std::shared_ptr<index_buffer> m_index_buffer;
-
+        
         transform m_transform;
+        
+        std::function<void(std::shared_ptr<shader_program>)> m_prebind_event;
         
     };
     

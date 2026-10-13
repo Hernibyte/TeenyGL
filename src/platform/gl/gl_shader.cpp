@@ -103,4 +103,5 @@ namespace TGL::GL
         glUniform1i(u_location, num);
         return true;
     }
+    
 }

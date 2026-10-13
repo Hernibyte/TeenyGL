@@ -16,12 +16,12 @@ namespace TGL::GFX
         renderer() = delete;
         renderer(CORE::window* in_window);
         
-        void begin_scene();
+        void begin_scene(const std::shared_ptr<camera>& in_camera);
         void end_scene();
         
         void submit(const std::shared_ptr<render_object>& render_object, const std::shared_ptr<shader_program>& shader_program);
         
-        void set_camera(const std::shared_ptr<camera>& in_camera);
+        void draw_raw_indexed(const i32 index_count) const;
         
         void clear_color(const f32 red, const f32 green, const f32 blue, const f32 alpha) const;
         void clear(const i32 mask) const;
