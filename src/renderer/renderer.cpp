@@ -24,6 +24,8 @@ namespace TGL::GFX
     void renderer::end_scene()
     {
         flush();
+        m_render_objects.clear();
+        m_shader_programs.clear();
     }
 
     void renderer::submit(const std::shared_ptr<render_object>& render_object, const std::shared_ptr<shader_program>& shader_program)
