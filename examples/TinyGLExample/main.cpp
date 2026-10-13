@@ -88,7 +88,7 @@ int main()
         app.draw_triangle(.0f, 1.0f, .0f);
         //app.draw_square(-1.0f, -1.0f, -1.0f);
         
-        app.get_renderer()->end_scene();
+        app.get_renderer()->end_drawing();
         
         app.get_window()->swap_buffers();
         app.get_window()->poll_events();

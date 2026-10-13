@@ -16,14 +16,15 @@ namespace TGL::GFX
         //m_camera = std::make_shared<camera>(-1.f, 1.f, -1.f, 1.f, -100.f, 100.f);
     }
 
-    void renderer::begin_scene(const std::shared_ptr<camera>& in_camera)
+    void renderer::begin_drawing(const std::shared_ptr<camera>& in_camera)
     {
         m_camera = in_camera;
     }
 
-    void renderer::end_scene()
+    void renderer::end_drawing()
     {
         flush();
+        
         m_render_objects.clear();
         m_shader_programs.clear();
     }

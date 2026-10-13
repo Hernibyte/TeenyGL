@@ -16,8 +16,8 @@ namespace TGL::GFX
         renderer() = delete;
         renderer(CORE::window* in_window);
         
-        void begin_scene(const std::shared_ptr<camera>& in_camera);
-        void end_scene();
+        void begin_drawing(const std::shared_ptr<camera>& in_camera);
+        void end_drawing();
         
         void submit(const std::shared_ptr<render_object>& render_object, const std::shared_ptr<shader_program>& shader_program);
         
