@@ -18,7 +18,7 @@ namespace TGL::GFX::UTILS
         TGL::GFX::vertex_buffer::vertex_buffer_info vertex_buffer_info = {
             vertices,
             9 * sizeof(float),
-{ {TGL::GFX::shader_data_type::float_3, "a_position"} }
+            { {TGL::GFX::shader_data_type::float_3, "a_position"} }
         };
         
         TGL::GFX::index_buffer::index_buffer_info index_buffer_info = {

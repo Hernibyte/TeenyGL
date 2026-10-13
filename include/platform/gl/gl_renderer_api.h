@@ -14,6 +14,7 @@ namespace TGL::GL
         
         virtual void clear_color(const f32 red, const f32 green, const f32 blue, const f32 alpha) const override;
         virtual void clear(const i32 mask) const override;
+        virtual void set_viewport(const i32 x, const i32 y, const i32 width, const i32 height) const override;
         
     };
     

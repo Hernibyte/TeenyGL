@@ -1,10 +1,13 @@
 #include "TeenyGL.h"
 
+TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
+
 namespace
 {
     bool on_window_resize(const TGL::window_resize_event& resize_event)
     {
         TGL_INFO("Window resized to: x={0}, y={1}", resize_event.get_width(), resize_event.get_height());
+        app.get_renderer()->set_viewport(0, 0, resize_event.get_width(), resize_event.get_height());
         return true;
     }
     
@@ -61,7 +64,7 @@ namespace
 
 int main()
 {
-    TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
+    //TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
     app.get_window()->set_on_event_callback(on_event);
     
     float last_frame_time = 0.f;
@@ -74,11 +77,15 @@ int main()
         
         TGL_INFO("Delta time: {0}s ({1}ms)", ts.get_seconds(), ts.get_milliseconds());
         
+        app.get_renderer()->begin_scene();
+        
         // Render your scene here
         app.get_renderer()->clear_color(0.2f, 0.3f, 0.3f, 1.0f);
         app.get_renderer()->clear(TGL_COLOR_BUFFER_BIT | TGL_DEPTH_BUFFER_BIT);
         app.draw_triangle(.0f, 1.0f, .0f);
         //app.draw_square(-1.0f, -1.0f, -1.0f);
+        
+        app.get_renderer()->end_scene();
         
         app.get_window()->swap_buffers();
         app.get_window()->poll_events();

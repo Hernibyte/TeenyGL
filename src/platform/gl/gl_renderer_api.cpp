@@ -34,5 +34,10 @@ namespace TGL::GL
     {
         glClear(mask);
     }
+
+    void gl_renderer_api::set_viewport(const i32 x, const i32 y, const i32 width, const i32 height) const
+    {
+        glViewport(x, y, width, height);
+    }
     
 }

@@ -26,6 +26,7 @@ namespace TGL::GFX
         virtual void draw_indexed(const i32 index_count) const = 0;
         virtual void clear_color(const  f32 red, const f32 green, const f32 blue, const f32 alpha) const = 0;
         virtual void clear(const  i32 mask) const = 0;
+        virtual void set_viewport(const i32 x, const i32 y, const i32 width, const i32 height) const = 0;
         
         static std::unique_ptr<renderer_api> create();
         static gfx_api get_api() { return s_gfx_api; }
