@@ -1,8 +1,4 @@
-#include "TinyGL.h"
-#include "core/timestep.h"
-#include "events/app_event.h"
-#include "events/key_event.h"
-#include "events/mouse_event.h"
+#include "TeenyGL.h"
 
 namespace
 {
@@ -65,7 +61,7 @@ namespace
 
 int main()
 {
-    TGL::CORE::render_window app{800, 600, "TinyGL Example"};
+    TGL::CORE::render_window app{800, 600, "TeenyGL Example"};
     app.get_window()->set_on_event_callback(on_event);
     
     float last_frame_time = 0.f;

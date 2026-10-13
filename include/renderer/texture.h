@@ -16,10 +16,11 @@ namespace TGL::GFX
         virtual i32 get_width() const { return m_width; };
         virtual i32 get_height() const { return m_height; };
         
-        virtual void bind(u32 slot = 0) const = 0;
+        virtual void bind(const u32 slot = 0) const = 0;
     
     protected:
         std::string m_file_path;
+        bool m_is_loaded = false;
         
         i32 m_width = 0;
         i32 m_height = 0;
@@ -30,6 +31,9 @@ namespace TGL::GFX
     {
     public:
         static std::shared_ptr<texture_2d> create(const std::string& file_path);
+        
+        bool is_loaded() const { return m_is_loaded; };
+        
     };
     
 }

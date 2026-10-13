@@ -4,7 +4,6 @@
 #include "stb_image.h"
 
 #include "glad/gl.h"
-#include "platform/assert.h"
 #include "platform/log.h"
 
 namespace TGL::GL
@@ -15,7 +14,13 @@ namespace TGL::GL
         
         i32 width, height, channels;
         stbi_uc* data = stbi_load(file_path.c_str(), &width, &height, &channels, 0);
-        TGL_CORE_ASSERT_LOG(data, "Failed to load image!");
+        if (!data)
+        {
+            TGL_CORE_ERROR("Failed to load image!");
+            return;
+        }
+        
+        m_is_loaded = true;
         m_width = width; m_height = height;
         
         GLenum format = 0;
@@ -46,11 +51,15 @@ namespace TGL::GL
 
     gl_texture_2d::~gl_texture_2d()
     {
+        if (!m_is_loaded) return;
+        
         glDeleteTextures(1, &m_id);
     }
 
-    void gl_texture_2d::bind(u32 slot) const
+    void gl_texture_2d::bind(const u32 slot) const
     {
+        if (!m_is_loaded) return;
+        
         glBindTextureUnit(slot, m_id);
     }
     
